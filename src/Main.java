@@ -1,6 +1,7 @@
 import Array.Array;
 import Bst.BST;
 import LinkedList.LinkedList;
+import MaxHeap.MaxHeap;
 import Queue.ArrayQueue;
 import Queue.LoopQueue;
 import Queue.Queue;
@@ -19,24 +20,43 @@ public class Main {
      * @param opCount
      * @return
      */
-    private static double testQueue(Queue<Integer> queue, int opCount) {
+    private static double testQueue(MaxHeap<Integer> maxHeap, int opCount) {
         long startTime = System.nanoTime();
 
         Random random = new Random();
 
         for (int i = 0; i < opCount; i++) {
-            queue.enqueue(random.nextInt(Integer.MAX_VALUE));
+            maxHeap.add(random.nextInt(Integer.MAX_VALUE));
         }
-        for (int i = 0; i < opCount; i++) {
-            queue.dequeue();
-        }
+
         long endTime = System.nanoTime();
         return (endTime - startTime) / 1000000000.0;
 
 
     }
     public static void main(String[] args) {
-
+        int n = 10000000;
+        MaxHeap<Integer> maxHeap = new MaxHeap<Integer>();
+        System.out.println(testQueue(maxHeap, n));
+//        Random random = new Random();
+//        for (int i = 0; i < n; i++) {
+//            maxHeap.add(random.nextInt(Integer.MAX_VALUE));
+//        }
+//
+//        int[] arr = new int[n];
+//
+//        for (int i = 0; i < n; i++) {
+//            arr[i] = maxHeap.extractMax();
+//        }
+//
+//
+//        for (int i = 1; i < n; i++) {
+//            if (arr[i - 1] < arr[i]) {
+//                throw new IllegalArgumentException("Error");
+//            }
+//        }
+//
+//        System.out.println("Test MaxHeap completed");
 
     }
 

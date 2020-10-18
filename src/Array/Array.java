@@ -21,6 +21,14 @@ public class Array<E> {
         size = 0;
     }
 
+    public Array(E[] arr) {
+        data = (E[]) new Object[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            data[i] = arr[i];
+        }
+        size = arr.length;
+    }
+
     /**
      * 当用户不传入capacity时，为data数组赋予默认值10
      */
@@ -251,5 +259,20 @@ public class Array<E> {
             newData[i] = data[i];
         }
         data = newData;
+    }
+
+    /**
+     * 交换传入位置处的元素
+     * @param i
+     * @param j
+     */
+    public void swap(int i, int j) {
+        if (i < 0 || i >= size || j < 0 || j >= size) {
+            throw new IllegalArgumentException("Index is illegal");
+        }
+
+        E t = data[i];
+        data[i] = data[j];
+        data[j] = t;
     }
 }
