@@ -44,14 +44,14 @@ public class SegmentTree<E> {
     }
 
     public int getSize() {
-        return data.length;
+        return tree.length;
     }
 
     public E get(int index) {
         if (index < 0 || index >= data.length) {
             throw new IllegalArgumentException("Index is illegal;");
         }
-        return data[index];
+        return tree[index];
     }
 
     private int leftChild(int k) {
@@ -62,6 +62,93 @@ public class SegmentTree<E> {
         return (2 * k) + 2;
     }
 
+
+    /**
+     * 返回区间[queryL,queryR]
+     * @param queryL
+     * @param queryR
+     * @return
+     */
+    public E query(int queryL, int queryR) {
+
+        if (queryL < 0 || queryL >= data.length || queryL > queryR) {
+            throw new IllegalArgumentException("index is Illegal");
+        }
+
+        return query(0, 0, data.length - 1, queryL, queryR);
+    }
+
+    /**
+     * 在以treeId为根的线段树中[l...r]的范围里，搜索区间[queryL...queryR]的值
+     * @param treeIndex
+     * @param l
+     * @param r
+     * @param queryL
+     * @param queryR
+     * @return
+     */
+    private E query(int treeIndex, int l, int r, int queryL, int queryR) {
+        if (l == queryL && r == queryR) {
+            return tree[treeIndex];
+        }
+
+        int mid = l + (r - l) / 2;
+
+        int leftTreeIndex = leftChild(treeIndex);
+        int rightTreeIndex = rightChild(treeIndex);
+
+        if (queryL >= mid + 1) {
+            return query(rightTreeIndex, mid + 1, r, queryL, queryR);
+        } else if (queryR <= mid + 1) {
+            return query(leftTreeIndex, l,mid, queryL, queryR);
+        }
+
+
+        E leftResult = query(leftTreeIndex, l, mid, queryL, mid);
+        E rightResult = query(rightTreeIndex, mid + 1, r, mid + 1, queryR);
+        return merger.merge(leftResult, rightResult);
+    }
+
+
+    /**
+     * 将index位置的值，更新为e
+     * @param index
+     * @param e
+     */
+    public void set(int index, E e) {
+
+        if (index < 0 || index >= data.length) {
+            throw new IllegalArgumentException("Index is illegal");
+        }
+
+        data[index] = e;
+        set(0, 0, data.length - 1, index, e);
+    }
+
+    /**
+     * 更新操作
+     * @param treeIndex
+     * @param l
+     * @param r
+     * @param index
+     * @param e
+     */
+    private void set(int treeIndex, int l, int r, int index, E e) {
+        if (l == r) {
+            tree[treeIndex] = e;
+        }
+
+        int mid = l + (r - l) / 2;
+        int leftTreeIndex = leftChild(treeIndex);
+        int rightTreeIndex = rightChild(treeIndex);
+        if (index >= mid + 1) {
+            set(rightTreeIndex, mid + 1, r, index, e);
+        }else {
+            set(leftTreeIndex, 0, mid,index, e);
+        }
+        tree[treeIndex] = merger.merge(tree[leftTreeIndex], tree[rightTreeIndex]);
+
+    }
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();

@@ -16,7 +16,7 @@ public class Main {
 
     /**
      * 测试使用queue运行opCount个enqueue和dequeue操作所需要的时间，秒
-     * @param queue
+     * @param
      * @param opCount
      * @return
      */
@@ -38,26 +38,6 @@ public class Main {
         int n = 10000000;
         MaxHeap<Integer> maxHeap = new MaxHeap<Integer>();
         System.out.println(testQueue(maxHeap, n));
-//        Random random = new Random();
-//        for (int i = 0; i < n; i++) {
-//            maxHeap.add(random.nextInt(Integer.MAX_VALUE));
-//        }
-//
-//        int[] arr = new int[n];
-//
-//        for (int i = 0; i < n; i++) {
-//            arr[i] = maxHeap.extractMax();
-//        }
-//
-//
-//        for (int i = 1; i < n; i++) {
-//            if (arr[i - 1] < arr[i]) {
-//                throw new IllegalArgumentException("Error");
-//            }
-//        }
-//
-//        System.out.println("Test MaxHeap completed");
-
     }
 
 }

@@ -1,7 +1,10 @@
 package Algorithm.binarysearchnorecur;
 
 /**
- * @author 张烈文
+ *
+ *非递归方式的二分查找
+ * 这里可能会发生溢出
+ *@author 张烈文
  */
 public class BinarySearchNoRecur {
     public static int binarySearch(int[] arr, int target) {
