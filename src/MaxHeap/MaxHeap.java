@@ -124,7 +124,7 @@ public class MaxHeap<E extends Comparable<E>> {
      * @param k
      */
     private void siftDown(int k) {
-        while (leftChild(k) < data.getSize()) {
+        while (leftChild(k) <data.getSize()) {
             int j = leftChild(k);
             if (j + 1 < data.getSize() && data.get(j + 1).compareTo(data.get(j)) > 0) {
                 j = rightChild(k);
