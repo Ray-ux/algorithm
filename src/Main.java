@@ -35,6 +35,9 @@ public class Main {
 
     }
     public static void main(String[] args) {
+        StringBuilder res = new StringBuilder("sdwewe");
+        System.out.println(res.reverse());
+
         int n = 10000000;
         MaxHeap<Integer> maxHeap = new MaxHeap<Integer>();
         System.out.println(testQueue(maxHeap, n));

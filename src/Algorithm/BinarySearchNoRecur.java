@@ -1,8 +1,8 @@
-package Algorithm.binarysearchnorecur;
+package Algorithm;
 
 /**
  *
- *非递归方式的二分查找
+ *二分查找算法
  * 这里可能会发生溢出
  *@author 张烈文
  */

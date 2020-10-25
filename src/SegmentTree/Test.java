@@ -1,13 +1,18 @@
 package SegmentTree;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * @author 张烈文
  */
 public class Test {
+
+
     public static void main(String[] args) {
-        Integer[] nums = {-2, 0, 3, -5, 2, -1};
-        SegmentTree<Integer> segmentTree = new SegmentTree<Integer>(nums, (a, b) -> a + b);
-        System.out.println(segmentTree.toString());
+        System.out.println(Math.pow(2, 31)*-1);
+        List<Integer> list = new LinkedList<>();
+
 
 
     }
