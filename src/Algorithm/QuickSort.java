@@ -2,12 +2,10 @@ package Algorithm;
 
 /**
  * @author 张烈文
+ * 快速排序法
  */
 public class QuickSort {
-    public static void main(String[] args) {
-        int[] arr = {-9, 78, 0, 23, -567, 70};
-    }
-    
+
     public static void quickSort(int[] arr, int left, int right) {
         //左下标
         int l = left;
