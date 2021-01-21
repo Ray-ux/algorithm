@@ -1,69 +1,114 @@
 package Algorithm;
 
+import Test.util.RandomArray;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * @author 张烈文
  * 快速排序法
+ * 双路，三路
  */
-public class QuickSort {
+public class QuickSort{
 
-    public static void quickSort(int[] arr, int left, int right) {
-        //左下标
-        int l = left;
-        //右下标
-        int r = right;
 
-//        pivot中轴值
-        int pivot = arr[(left + right) / 2];
-//        交换时使用
-        int temp = 0;
+    public static void quickSortWay3(Comparable[] arr) {
+        int n = arr.length;
+        __quickSortWay3(arr, 0, n - 1);
+    }
 
-//        while循环的目的是让比pivot值小放到左边
-//        比pivot值大放到右边
-        while (1 < r) {
+    private static void __quickSortWay3(Comparable[] arr, int l, int r) {
 
-//            在pivot的左边一直找，找到大于等于pivot值才退出
-            while (arr[l] < pivot) {
-                l++;
+       //TODO  当元素个数为16个时可以考虑使用插入排序
+        // 随机在arr[l...r]的范围中, 选择一个数值作为标定点pivot
+        swap( arr, l, (int)(Math.random()*(r-l+1)) + l );
+        Comparable v = arr[l];
+        int lt = l;  //满足arr[l+1...lt]<v
+        int gt=r+1;  //满足arr[gt...r]>v
+        int i = l + 1; //满足arr[gt+1...i)==v
+        while (i < gt) {
+            if (arr[i].compareTo(v) < 0) {
+                swap(arr, lt + 1, i);
+                i++;
+                lt++;
+            }else if (arr[i].compareTo(v) > 0) {
+                swap(arr, i, gt - 1);
+                gt--;
+            }else{
+                i++;
             }
+            swap(arr, l, lt);
+        }
 
-//            在pivot的右边一直找，找到小于等于pivot值才退出
-            while (arr[r] > pivot) {
-                r--;
+        __quickSortWay3(arr, l, lt-1);
+        __quickSortWay3(arr, gt, r);
+    }
+
+    //    对arr[l...r]部分进行快速排序,左闭右闭
+    public static void quickSort(Comparable[] arr) {
+        int n = arr.length;
+        __quickSort(arr, 0, n - 1);
+    }
+
+    private  static void __quickSort(Comparable[] arr, int l,int r) {
+        if (l >= r) {
+            return;
+        }
+        int p=__partition(arr, l, r);
+        __quickSort(arr, l, p - 1);
+        __quickSort(arr,p+1,r);
+    }
+
+//    返回p使得arr[l...p-1]<arr[p];arr[p+1....r]>arr[p]
+    private static int __partition(Comparable[] arr, int l, int r) {
+
+        Comparable v = arr[l];
+        int j = l;
+        for (int i = l + 1; i <= r; i++) {
+            if (arr[i].compareTo(v) < 0) {
+                swap(arr, j + 1, i);
+                j++;
             }
+        }
+        swap(arr, l, j);
+        return j;
+    }
 
-//            如果l>=r说明pivot的左右两的值，已经按照左边全部是小于等于pivot值，
-//            而右边全部是大于等于pivot值
-            if (l >= r) {
+    /**
+     * 双路排序
+     * @param arr
+     * @param l
+     * @param r
+     * @return
+     */
+    private static int __partition2(Comparable[] arr, int l, int r) {
+        swap(arr,l,(int)(Math.random()*(r-l+1))+1);
+        Comparable v = arr[l];
+        int i = l + 1, j = r;
+        while (true) {
+            while (arr[i].compareTo(v) < 0 && i <= r) {
+                i++;
+            }
+            while (arr[j].compareTo(v) > 0 && j >= l + 1) {
+                j--;
+            }
+            if (i > j) {
                 break;
             }
-//            交换
-            temp = arr[l];
-            arr[l] = arr[r];
-            arr[r] = temp;
-
-//            如果交换完后，发现这个arr[l]==pivot值 相等 r-- ，前移
-            if (arr[l] == pivot) {
-                r--;
-            }
-            //如果交换完后，发现这个arr[r]==pivot值 相等 l++ ，前移
-            if (arr[r] == pivot) {
-                l++;
-            }
+            swap(arr, i, j);
+            i++;
+            j--;
         }
-
-//        如果l==r,必须l++,r--,否则会出现栈溢出
-        if (l == r) {
-            l++;
-            r--;
-        }
-
-        if (left < r) {
-            quickSort(arr, left, r);
-        }
-
-        if (right > l) {
-            quickSort(arr, l, right);
-
-        }
+        swap(arr, l, j);
+        return j;
     }
+
+    private static void swap(Object arr[], int max, int min) {
+        Object temp = arr[max];
+        arr[max] = arr[min];
+        arr[min] = temp;
+    }
+
+
 }

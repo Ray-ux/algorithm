@@ -1,5 +1,7 @@
 package Algorithm;
 
+import java.util.HashMap;
+
 /**
  *
  *二分查找算法

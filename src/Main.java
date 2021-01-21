@@ -35,12 +35,21 @@ public class Main {
 
     }
     public static void main(String[] args) {
-        StringBuilder res = new StringBuilder("sdwewe");
-        System.out.println(res.reverse());
+//        StringBuilder res = new StringBuilder("sdwewe");
+//        System.out.println(res.reverse());
+//
+//        int n = 10000000;
+//        MaxHeap<Integer> maxHeap = new MaxHeap<Integer>();
+//        System.out.println(testQueue(maxHeap, n));
+        Solution solution = new Solution();
+        int[] arr1 = {2,21,43,38,0,42,33,7,24,13,12,27,12,24,5,23,29,48,30,31};
+        int[] arr2 = {2,42,38,0,43,21};
+        int[] nums = solution.relativeSortArray(arr1, arr2);
+        for (int num : nums) {
+            System.out.println(num);
+        }
 
-        int n = 10000000;
-        MaxHeap<Integer> maxHeap = new MaxHeap<Integer>();
-        System.out.println(testQueue(maxHeap, n));
+
     }
 
 }
